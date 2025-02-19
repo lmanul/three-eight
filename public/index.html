@@ -12,10 +12,17 @@
             display: flex;
             height: 100vh;
             justify-content: center;
+            margin: 0;
         }
         #search {
             font-size: large;
             padding: 2ex;
+        }
+        #autocomplete {
+            background-color: #eee;
+            border: 1px solid #ddd;
+            visibility: hidden;
+            height: 50ex;
         }
     </style>
   </head>
@@ -23,14 +30,35 @@
   <body>
     <div>
         <input id="search" placeholder="Dictionary" />
+        <div id="autocomplete"></div>
     </div>
     <script>
-        const source = document.getElementById('search');
-        const inputHandler = function(e) {
-          result.innerText = e.target.value;
+        const inputField = document.getElementById('search');
+        const inputHandler = async (event) => {
+            console.log(event.target.value);
+            const queryText = event.target.value.trim();
+            const autocompleteEl = document.getElementById('autocomplete');
+            if (!queryText) {
+                // TODO: Refactor into show/hide function
+                autocompleteEl.style.visibility = 'hidden';
+                return;
+            }
+            // TODO: sanitize, URL-encode
+            // TODO: throttle
+            const response = await fetch('/s/' + queryText);
+            const results = await response.text();
+            const words = results.split('|').filter(w => w.trim());
+            console.log(words);
+
+            autocompleteEl.style.visibility = words.length > 0 ? 'visible' : 'hidden';
+
+            // autocompleteEl.innerHTML = words.join('<br/>');
         }
 
-        source.addEventListener('input', inputHandler);
+        inputField.addEventListener('input', inputHandler);
+
+        inputField.focus();
+
     </script>
   </body>
 </html>
