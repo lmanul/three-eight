@@ -6,9 +6,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SAYT</title>
+    <style>
+        body {
+            align-items: center;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+        }
+        #search {
+            font-size: large;
+            padding: 2ex;
+        }
+    </style>
   </head>
 
   <body>
-    Loading...
+    <div>
+        <input id="search" placeholder="Dictionary" />
+    </div>
+    <script>
+        const source = document.getElementById('search');
+        const inputHandler = function(e) {
+          result.innerText = e.target.value;
+        }
+
+        source.addEventListener('input', inputHandler);
+    </script>
   </body>
 </html>
