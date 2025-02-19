@@ -9,10 +9,7 @@ const wordsRaw = fs.readFileSync('data/words.txt',
 );
 const words = wordsRaw.split('\n');
 
-app.get('/', (req, res) => {
-  res.send('Loading...');
-})
-
+app.use('/', express.static('public'));
 
 
 app.listen(port, () => {
