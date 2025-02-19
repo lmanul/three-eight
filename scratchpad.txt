@@ -1,0 +1,4 @@
+* Source of data
+* Client + server
+* Authentication
+* Size of data? Local search VS remote search
